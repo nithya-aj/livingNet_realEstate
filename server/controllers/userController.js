@@ -91,17 +91,17 @@ export const handleFavorites = asyncHandler(async (req, res) => {
       where: { email },
     });
     if (user.favResidenciesID.includes(rid)) {
-      const updatedUser = await prisma.user.update({
-        email: { email },
+      const updateUser = await prisma.user.update({
+        where: { email },
         data: {
           favResidenciesID: {
             set: user.favResidenciesID.filter((id) => id !== rid),
           },
         },
       });
-      res.send({ message: "Removed from favorites", user: updatedUser });
+      res.send({ message: "Removed from favorites", user: updateUser });
     } else {
-      const updatedUser = await prisma.user.update({
+      const updateUser = await prisma.user.update({
         where: { email },
         data: {
           favResidenciesID: {
@@ -109,10 +109,23 @@ export const handleFavorites = asyncHandler(async (req, res) => {
           },
         },
       });
-      res.send({ message: "Added to favorites", user: updatedUser });
+      res.send({ message: "Added to favorites", user: updateUser });
     }
   } catch (error) {
     throw new Error(error.message);
   }
 });
 
+// function to get all tha favorites of a user
+export const getAllFavorites = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  try {
+    const favResidencies = await prisma.user.findUnique({
+      where: { email },
+      select: { favResidenciesID: true },
+    });
+    res.status(200).send(favResidencies);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+});
