@@ -12,7 +12,7 @@ const Residencies = () => {
   if (isError) {
     return (
       <div>
-        <span>Wrrpr while loading...</span>
+        <span>while loading...</span>
       </div>
     );
   }
