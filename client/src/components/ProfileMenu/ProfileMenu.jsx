@@ -6,7 +6,6 @@ const ProfileMenu = ({ user, logout }) => {
     <Menu>
       <Menu.Target>
         <Avatar src={user?.picture} alt="user-image" radius={"xl"} />
-        {/* <div>{user.name}</div> */}
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Item>Favorites</Menu.Item>
