@@ -5,11 +5,16 @@ const ProfileMenu = ({ user, logout }) => {
   return (
     <Menu>
       <Menu.Target>
-        <Avatar src={user.picture} alt="user-image" radius={"xl"} />
+        <Avatar src={user?.picture} alt="user-image" radius={"xl"} />
+        {/* <div>{user.name}</div> */}
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Item>Favorites</Menu.Item>
-        <Menu.Item onClick={logout}>Log out</Menu.Item>
+        <Menu.Item>Bookings</Menu.Item>
+        <Menu.Item onClick={() =>{
+          localStorage.clear();
+          logout()
+        }}>Log out</Menu.Item>
       </Menu.Dropdown>
     </Menu>
   );
